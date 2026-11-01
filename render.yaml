@@ -3,7 +3,7 @@ services:
     name: techfest2026
     runtime: node
     plan: free
-    buildCommand: npm ci --prefix backend && npm test --prefix backend && npm ci --prefix frontend && npm run build --prefix frontend
+    buildCommand: npm ci --include=dev --prefix backend && npm test --prefix backend && npm ci --include=dev --prefix frontend && npm run build --prefix frontend
     startCommand: npm start --prefix backend
     healthCheckPath: /api/health
     autoDeployTrigger: checksPass

@@ -29,7 +29,7 @@ Tests use mocked user queries; they do not prove live MongoDB persistence or tra
 
 ## Deploy
 
-Use `render.yaml` or configure a free Node web service from **Sabareesh-pr/wt-lab**, branch main. Build: `npm ci --prefix backend && npm test --prefix backend && npm ci --prefix frontend && npm run build --prefix frontend`. Start: `npm start --prefix backend`. Health check: `/api/health`.
+Use `render.yaml` or configure a free Node web service from **Sabareesh-pr/wt-lab**, branch main. Build: `npm ci --include=dev --prefix backend && npm test --prefix backend && npm ci --include=dev --prefix frontend && npm run build --prefix frontend`. Start: `npm start --prefix backend`. Health check: `/api/health`.
 
 Set NODE_ENV=production, MONGO_URI to the dedicated Atlas database, JWT_SECRET to a random value of at least 32 characters, and APP_ORIGIN to the exact HTTPS service origin with no trailing slash. Allow only the needed Render outbound addresses in Atlas. Run the seed locally against that database once.
 
