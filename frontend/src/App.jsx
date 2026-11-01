@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   return (
-    <div className={theme}>
+    <div className={`${theme} site-shell`}>
       <Navbar token={token} setToken={setToken} />
       <Suspense fallback={<p className="page">Loading...</p>}><Routes>
         <Route path="/" element={<Home />} />
@@ -31,6 +31,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes></Suspense>
+      <footer className="site-footer">© 2026 TechFest. All rights reserved.</footer>
     </div>
   );
 }

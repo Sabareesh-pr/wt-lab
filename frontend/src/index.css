@@ -209,3 +209,17 @@ form {max-width:480px;}
 .gallery-grid img {height:auto; aspect-ratio:3/2; object-fit:cover;}
 :focus-visible {outline:3px solid #df9e00; outline-offset:3px;}
 @media(max-width:600px) {.navbar {padding:16px;} .page {padding:24px 16px;} .event-grid {grid-template-columns:1fr;}}
+
+.site-shell {display:flex; flex-direction:column;}
+.site-shell > .page {width:100%; flex:1;}
+.home-page section + section {margin-top:32px;}
+.welcome {max-width:680px; padding:12px 0;}
+.welcome h1 {margin-top:0;}
+.tagline {font-weight:600;}
+.welcome p {line-height:1.6;}
+.home-cta {display:inline-block; margin-top:12px; padding:10px 20px; border-radius:8px; background:#3a0ca3; color:white; text-decoration:none; font-weight:600;}
+.home-cta:hover {background:#240046;}
+.highlights {display:flex; flex-wrap:wrap; gap:12px; list-style:none; padding:0;}
+.highlights li {padding:12px 16px; border:1px solid #ccc; border-radius:8px;}
+.site-footer {padding:20px 24px; text-align:center; font-size:0.9rem; border-top:1px solid #ccc;}
+@media(max-width:600px) {.highlights {flex-direction:column;} .welcome h1 {font-size:1.75rem;}}
