@@ -60,3 +60,9 @@ Local in-app browser checks verified navigation, required-name validation, acces
 Git workflow: imported source on main; implemented feature/production-security; merged with --no-ff. A real same-line documentation conflict on lab/merge-exercise was then resolved; see branching-demo.md and its two-parent merge commit.
 
 Render creation form prepared for techfest2026-wt-lab, free plan, health endpoint /api/health, and After CI Checks Pass. Submission is pending Atlas credentials. Native CI-triggered deployment replaces a separate deploy-hook secret.
+
+## Vercel deployment preparation
+
+The requested hosting target is now Vercel. React is built to frontend/dist and served statically; /api/* routes to api/index.js, which reuses the existing Express app and a cached MongoDB pool. The serverless entry point has no port listener. See vercel.json and the Vercel section in README.md.
+
+Local verification: ten tests across security and serverless handling pass; the frontend production build passes. The literal password proposed in chat was rejected by Atlas; a later check also rejected the current ignored .env credential. Vercel project creation reached its email reauthentication gate. No successful Vercel deployment or working live database connection is claimed at this stage.
