@@ -17,6 +17,26 @@ export default function Home() {
           <li>Cultural Night</li>
         </ul>
       </section>
+      <section>
+        <h2>Something for everyone</h2>
+        <div className="home-details">
+          <article><h3>Compete</h3><p>Put your coding skills to the test and tackle new challenges.</p></article>
+          <article><h3>Learn</h3><p>Build something new in a hands-on web development workshop.</p></article>
+          <article><h3>Connect</h3><p>Meet fellow students and enjoy the cultural celebrations.</p></article>
+        </div>
+      </section>
+      <section>
+        <h2>How to join</h2>
+        <ol className="join-steps">
+          <li><Link to="/register">Create an account</Link> and log in.</li>
+          <li>Explore events, fees and available seats.</li>
+          <li>Choose your event and register your place.</li>
+        </ol>
+      </section>
+      <section className="home-venue">
+        <div><h2>See you on campus</h2><p>MBCET Campus, Thiruvananthapuram.</p></div>
+        <Link to="/contact">Contact the team →</Link>
+      </section>
     </main>
   );
 }
