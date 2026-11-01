@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 export default function Home() {
   return (
     <main className="page home-page">
+      <video className="home-video" controls autoPlay muted loop playsInline preload="metadata" aria-label="TechFest campus highlights"><source src="/media/hero.mp4" type="video/mp4" />Your browser does not support video playback.</video>
       <section className="home-banner" aria-labelledby="festival-tagline">
         <h1 id="festival-tagline">Inspire • Innovate • Integrate</h1>
         <p>Experience the excitement of TechFest 2026.</p>

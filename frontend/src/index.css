@@ -232,4 +232,15 @@ form {max-width:480px;}
   .home-banner {padding:40px 0;}
   .home-page .home-banner h1 {font-size:1.75rem;}
   .home-page section {margin-bottom:40px;}
-}
+}.home-video {display:block; width:100%; height:350px; object-fit:cover; background:#0f1117;}
+.gallery-page .gallery-grid {grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+.gallery-thumbnail {padding:0; border:0; background:transparent; cursor:zoom-in; border-radius:12px; overflow:hidden;}
+.gallery-thumbnail img {display:block; width:100%; height:250px; object-fit:cover;}
+.gallery-dialog {width:min(1000px,94vw); max-height:94vh; padding:48px 16px 16px; border:0; border-radius:12px; background:#0f1117; color:#e8e9ee;}
+.gallery-dialog::backdrop {background:rgba(0,0,0,.85);}
+.gallery-dialog > img {display:block; width:100%; height:65vh; object-fit:contain;}
+.gallery-close {position:absolute; top:8px; right:14px; background:transparent; border:0; color:white; font-size:28px; cursor:pointer;}
+.gallery-controls {display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px;}
+.gallery-controls button {padding:10px 14px; border:0; border-radius:8px; background:#3a0ca3; color:white; cursor:pointer;}
+@media(max-width:600px) {.home-video {height:240px;} .gallery-dialog > img {height:55vh;}}
+@media(prefers-reduced-motion:reduce) {.gallery-grid img {transition:none;} .gallery-grid img:hover {transform:none;}}
