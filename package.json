@@ -1,0 +1,9 @@
+{
+  "name": "techfest2026-portal",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {"node": "22.x"},
+  "scripts": {
+    "build": "npm test --prefix backend && npm run build --prefix frontend"
+  }
+}

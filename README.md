@@ -38,3 +38,9 @@ CI installs locked dependencies, runs tests and builds React. Render is configur
 Rollback: redeploy the previous successful Render deployment. This update does not modify existing collection data. JWTs expire after two hours; logout clears the browser cookie but does not revoke a copied token before expiry.
 
 See [deployment report](docs/deployment-report.md) for evidence and pending cloud checks.
+
+## Vercel
+
+Import this repository with its root directory unchanged. `vercel.json` installs both packages, runs backend tests, builds React and routes `/api/*` to the Express function. Static React files use Vercel's CDN; page refreshes use index.html. Set MONGO_URI, JWT_SECRET (at least 32 random characters), NODE_ENV=production and APP_ORIGIN to the exact production HTTPS origin. Do not set PORT: Vercel handles requests without a port listener.
+
+The API reuses one small MongoDB pool per warm function instance. Percent-encode the username/password in the MongoDB URI; do not substitute the literal word `password` unless that is the actual Atlas password. Request-rate counters are per function instance, so they are not a global distributed quota.
