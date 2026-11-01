@@ -22,6 +22,8 @@ module.exports = async (req, res) => {
   await connection;
   return app(req, res);
  } catch {
-  res.status(503).json({message:'Service temporarily unavailable'});
+  res.statusCode = 503;
+  res.setHeader('Content-Type','application/json');
+  res.end(JSON.stringify({message:'Service temporarily unavailable'}));
  }
 };
