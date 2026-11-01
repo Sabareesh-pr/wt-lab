@@ -49,7 +49,7 @@ After deployment: verify HTTPS, signup/login/reload/logout, events search/filter
 
 ## Recorded evidence
 
-GitHub CI passed on main at commit 81cd6a4: https://github.com/Sabareesh-pr/wt-lab/actions/runs/41317019663. This verifies tests/build; deployment hook was not configured.
+GitHub CI passed on main at commit 81cd6a4: https://github.com/Sabareesh-pr/wt-lab/actions/runs/41317019663. This verifies tests/build; the Render service had not yet been created.
 
 ![Green CI](screenshots/ci-green.jpg)
 ![Local homepage, not deployed](screenshots/local-home.jpg)
@@ -58,3 +58,5 @@ GitHub CI passed on main at commit 81cd6a4: https://github.com/Sabareesh-pr/wt-l
 Local in-app browser checks verified navigation, required-name validation, accessible form labels, gallery lazy attributes and descriptive alt text. Viewport override requests did not change the actual 1280 px page viewport, so mobile testing remains unverified. No second-browser or live Lighthouse claim is made.
 
 Git workflow: imported source on main; implemented feature/production-security; merged with --no-ff. A real same-line documentation conflict on lab/merge-exercise was then resolved; see branching-demo.md and its two-parent merge commit.
+
+Render creation form prepared for techfest2026-wt-lab, free plan, health endpoint /api/health, and After CI Checks Pass. Submission is pending Atlas credentials. Native CI-triggered deployment replaces a separate deploy-hook secret.

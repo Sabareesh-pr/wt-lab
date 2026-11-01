@@ -25,13 +25,3 @@ jobs:
         with:
           name: frontend-build
           path: frontend/dist
-      - name: Deploy after passing checks
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        env:
-          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
-        run: |
-          if [ -n "$DEPLOY_HOOK" ]; then
-            curl --fail --silent --show-error --request POST "$DEPLOY_HOOK"
-          else
-            echo "Render deployment hook has not been configured."
-          fi

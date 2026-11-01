@@ -6,7 +6,7 @@ services:
     buildCommand: npm ci --prefix backend && npm test --prefix backend && npm ci --prefix frontend && npm run build --prefix frontend
     startCommand: npm start --prefix backend
     healthCheckPath: /api/health
-    autoDeploy: false
+    autoDeployTrigger: checksPass
     envVars:
       - key: NODE_ENV
         value: production

@@ -33,7 +33,7 @@ Use `render.yaml` or configure a free Node web service from **Sabareesh-pr/wt-la
 
 Set NODE_ENV=production, MONGO_URI to the dedicated Atlas database, JWT_SECRET to a random value of at least 32 characters, and APP_ORIGIN to the exact HTTPS service origin with no trailing slash. Allow only the needed Render outbound addresses in Atlas. Run the seed locally against that database once.
 
-CI installs locked dependencies, runs tests and builds React. Set the GitHub Actions secret RENDER_DEPLOY_HOOK from Render's deployment hook and disable Render automatic deploys so deployment follows passing CI. Until this secret is set, CI reports that deployment is not configured. No cloud deployment is implied by a successful local build.
+CI installs locked dependencies, runs tests and builds React. Render is configured with **After CI Checks Pass**, so successful main-branch checks trigger deployment after the service is created. No deployment-hook secret is needed. This matches Render's [Blueprint reference](https://render.com/docs/blueprint-spec#autodeploytrigger). No cloud deployment is implied by a successful local build.
 
 Rollback: redeploy the previous successful Render deployment. This update does not modify existing collection data. JWTs expire after two hours; logout clears the browser cookie but does not revoke a copied token before expiry.
 
