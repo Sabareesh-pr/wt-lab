@@ -10,7 +10,7 @@ function Gallery() {
       <h1>Gallery</h1>
       <div className="gallery-grid">
         {images.map((src, index) => (
-          <img key={index} src={src} alt="TechFest" />
+          <img key={index} src={src} alt={`TechFest technology showcase ${index + 1}`} loading="lazy" decoding="async" width="300" height="200" />
         ))}
       </div>
     </div>

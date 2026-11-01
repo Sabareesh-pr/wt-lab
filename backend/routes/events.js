@@ -1,12 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/Event");
+const {body, param} = require('express-validator');
+const validate = require('../middleware/validate');
+const fields = [body('name').isString().trim().isLength({min:1,max:120}), body('category').isIn(['Technical','Workshop','Cultural','Sports']), body('fee').isFloat({min:0}), body('seats').isInt({min:0}), body('date').optional().isISO8601(), validate];
+const id = [param('id').isMongoId(), validate];
 const auth = require("../middleware/auth");
 
 // GET all events - public
 router.get("/", async (req, res, next) => {
   try {
-    const events = await Event.find();
+    const events = await Event.find().limit(100).lean();
     res.status(200).json(events);
   } catch (err) {
     next(err);
@@ -14,7 +18,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // GET one event by id - public
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", ...id, async (req, res, next) => {
   try {
     const event = await Event.findById(req.params.id);
     if (!event) return res.status(404).json({ message: "Event not found" });
@@ -25,10 +29,10 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // POST add a new event - protected (admin action)
-router.post("/", auth, async (req, res, next) => {
+router.post("/", auth, auth.admin, ...fields, async (req, res, next) => {
   try {
     const { name, category, fee, seats, date } = req.body;
-    if (!name || !category || !seats) {
+    if (!name || !category || seats === undefined) {
       return res.status(400).json({ message: "name, category and seats are required" });
     }
     const event = await Event.create({ name, category, fee, seats, date });
@@ -39,9 +43,9 @@ router.post("/", auth, async (req, res, next) => {
 });
 
 // PUT edit an event - protected
-router.put("/:id", auth, async (req, res, next) => {
+router.put("/:id", auth, auth.admin, ...id, ...fields, async (req, res, next) => {
   try {
-    const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
+    const event = await Event.findByIdAndUpdate(req.params.id, {name:req.body.name, category:req.body.category, fee:req.body.fee, seats:req.body.seats, date:req.body.date}, {
       new: true,
       runValidators: true
     });
@@ -53,7 +57,7 @@ router.put("/:id", auth, async (req, res, next) => {
 });
 
 // DELETE remove an event - protected
-router.delete("/:id", auth, async (req, res, next) => {
+router.delete("/:id", auth, auth.admin, ...id, async (req, res, next) => {
   try {
     const event = await Event.findByIdAndDelete(req.params.id);
     if (!event) return res.status(404).json({ message: "Event not found" });

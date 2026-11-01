@@ -1,3 +1,4 @@
+import {api} from "../api";
 import { useState, useEffect } from "react";
 import EventList from "../components/EventList";
 
@@ -9,8 +10,8 @@ function Events({ token }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
-      .then((res) => res.json())
+    api("/events")
+      .then((res) => {if(!res.ok) throw new Error(); return res.json();})
       .then((data) => {
         setEvents(data);
         setLoading(false);
@@ -32,11 +33,12 @@ function Events({ token }) {
       <h1>Events</h1>
       <input
         type="text"
+        aria-label="Search events"
         placeholder="Search events..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      <select aria-label="Filter category" value={category} onChange={(e) => setCategory(e.target.value)}>
         <option value="All">All</option>
         <option value="Technical">Technical</option>
         <option value="Workshop">Workshop</option>

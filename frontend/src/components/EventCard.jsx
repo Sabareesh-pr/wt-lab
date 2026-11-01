@@ -1,3 +1,4 @@
+import {api} from "../api";
 import { useState } from "react";
 
 function EventCard({ event, token }) {
@@ -11,11 +12,11 @@ function EventCard({ event, token }) {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/registrations", {
+      const res = await api("/registrations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
+
         },
         body: JSON.stringify({ eventId: event._id })
       });

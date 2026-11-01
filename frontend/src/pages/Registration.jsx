@@ -1,3 +1,4 @@
+import {api} from "../api";
 import { useState } from "react";
 
 function Registration() {
@@ -14,13 +15,13 @@ function Registration() {
 
     if (name.trim() === "") newErrors.name = "Name is required";
     if (!/^\S+@\S+\.\S+$/.test(email)) newErrors.email = "Enter a valid email";
-    if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
+    if (password.length < 8) newErrors.password = "Password must be at least 8 characters";
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await api("/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password })
@@ -53,16 +54,16 @@ function Registration() {
     <div className="page">
       <h1>Registration</h1>
       <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} />
+        <label htmlFor="name">Name</label>
+        <input id="name" autoComplete="name" required maxLength={80} value={name} onChange={(e) => setName(e.target.value)} />
         {errors.name && <p className="error-msg">{errors.name}</p>}
 
-        <label>Email</label>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} />
+        <label htmlFor="email">Email</label>
+        <input id="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         {errors.email && <p className="error-msg">{errors.email}</p>}
 
-        <label>Password</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <label htmlFor="password">Password</label>
+        <input id="password" autoComplete="new-password" required minLength={8} maxLength={72} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         {errors.password && <p className="error-msg">{errors.password}</p>}
 
         <button type="submit">Submit</button>
