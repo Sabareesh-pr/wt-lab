@@ -8,4 +8,8 @@ async function start() {
  const server = require('./app').listen(process.env.PORT || 5000, () => console.log('TechFest server ready'));
  process.on('SIGTERM', () => server.close(() => mongoose.disconnect().then(() => process.exit(0))));
 }
-start().catch(() => {console.error('Startup failed: check environment and database access'); process.exit(1);});
+start().catch(err => {
+ const causes = [...(err.reason?.servers?.values() || [])].map(server => ({name:server.error?.name,code:server.error?.cause?.code || server.error?.code,tls:/tls|ssl|certificate/i.test(server.error?.message || '')}));
+ console.error('Startup failed', {name:err.name, code:err.code, authentication:/auth/i.test(err.message), causes});
+ process.exit(1);
+});
