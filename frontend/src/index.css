@@ -215,7 +215,8 @@ form {max-width:480px;}
 /* Homepage follows the original ZIP's centred sections and generous spacing. */
 .page.home-page {text-align:center; max-width:none; padding:0 0 32px;}
 .home-page section {max-width:912px; margin:0 auto 60px; padding-left:24px; padding-right:24px;}
-.home-banner {padding:50px 20px;}
+.home-hero {position:relative; margin-bottom:60px; overflow:hidden;}
+.home-hero .home-banner {position:absolute; inset:auto 0 0; max-width:none; margin:0; padding:64px 24px 28px; color:white; background:linear-gradient(transparent,rgba(15,17,23,.85)); text-shadow:0 2px 6px rgba(0,0,0,.5);}
 .home-banner h1 {margin:0 0 10px;}
 .home-banner p {margin:0;}
 .welcome {max-width:720px;}
@@ -229,11 +230,12 @@ form {max-width:480px;}
 .home-announcements p {margin:8px 0;}
 .site-footer {padding:20px 24px; text-align:center; font-size:0.9rem; border-top:1px solid #ccc;}
 @media(max-width:600px) {
-  .home-banner {padding:40px 0;}
+  .home-hero {margin-bottom:40px;}
+  .home-hero .home-banner {padding:48px 16px 20px;}
   .home-page .home-banner h1 {font-size:1.75rem;}
   .home-page section {margin-bottom:40px;}
 }
-.home-video {display:block; width:100%; height:clamp(350px,42vw,600px); object-fit:cover; background:#0f1117;}
+.home-video {display:block; width:100%; height:clamp(300px,32vw,440px); object-fit:cover; background:#0f1117;}
 .gallery-page .gallery-grid {grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
 .gallery-thumbnail {padding:0; border:0; background:transparent; cursor:zoom-in; border-radius:12px; overflow:hidden;}
 .gallery-thumbnail img {display:block; width:100%; height:250px; object-fit:cover;}
