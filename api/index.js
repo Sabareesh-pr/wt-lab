@@ -21,7 +21,12 @@ module.exports = async (req, res) => {
   }
   await connection;
   return app(req, res);
- } catch {
+ } catch (error) {
+  console.error('API initialization failed', {
+   name:error.name, code:error.code,
+   authentication:/auth/i.test(error.message),
+   configuration:error.message === 'Missing server configuration'
+  });
   res.statusCode = 503;
   res.setHeader('Content-Type','application/json');
   res.end(JSON.stringify({message:'Service temporarily unavailable'}));
