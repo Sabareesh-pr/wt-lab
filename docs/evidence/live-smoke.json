@@ -1,0 +1,16 @@
+{
+  "health": "ok",
+  "securityHeaders": {
+    "csp": true,
+    "hsts": true,
+    "nosniff": true
+  },
+  "signup": 201,
+  "loginCookie": "HttpOnly; Secure; SameSite=Strict",
+  "adminRejected": 403,
+  "booking": "Persisted; duplicate rejected; seat decremented exactly once",
+  "logout": "Cookie cleared; public session state is null; protected data rejected",
+  "testAccount": "deployment-1793549318386@example.com",
+  "origin": "https://techfest2026-wt-lab.vercel.app",
+  "checkedAt": "2026-11-01T16:08:44.543Z"
+}

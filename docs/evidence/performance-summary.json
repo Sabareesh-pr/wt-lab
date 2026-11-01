@@ -1,0 +1,27 @@
+{
+  "url": "https://techfest2026-wt-lab.vercel.app/",
+  "before": {
+    "performance": 98,
+    "accessibility": 100,
+    "best-practices": 96,
+    "seo": 82
+  },
+  "after": {
+    "performance": 94,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "first-contentful-paint": "1.8\u00a0s",
+    "largest-contentful-paint": "1.8\u00a0s",
+    "total-blocking-time": "200\u00a0ms",
+    "cumulative-layout-shift": "0"
+  },
+  "fixedAudits": {
+    "errors-in-console": 1,
+    "meta-description": 1,
+    "robots-txt": 1,
+    "render-blocking-insight": 1
+  }
+}

@@ -1,10 +1,12 @@
 # TechFest 2026
 
-Simple React + Express + MongoDB portal. React and the API share one Render service, so authentication cookies remain same-origin.
+Simple React + Express + MongoDB portal, deployed as one Vercel project.
+
+**Live:** https://techfest2026-wt-lab.vercel.app
 
 ## Run locally
 
-Use Node 22.16 or newer. Copy `backend/.env.example` to `backend/.env`, set an Atlas URI ending in `/techfest2026` and a random JWT secret of at least 32 characters. Do not commit secrets.
+Use Node 22. Copy backend/.env.example to backend/.env and set the actual Atlas MONGO_URI, a random JWT_SECRET of at least 32 characters, APP_ORIGIN=http://localhost:5173 and NODE_ENV=development. Percent-encode special characters in database credentials. The literal word `password` is not a default Atlas password. Never commit .env.
 
 ```sh
 npm ci --prefix backend
@@ -14,33 +16,32 @@ node seed.js
 npm start
 ```
 
-In another terminal run `npm run dev --prefix frontend`. Open http://localhost:5173. The Vite proxy forwards `/api` to port 5000. Create an account, log in, browse events and register. Account registration never grants admin privileges.
+In another terminal, run `npm run dev --prefix frontend` from the repository root. Open http://localhost:5173. Create an account, log in and register for an event. Account signup does not grant admin privileges.
 
-## Verify
+## Checks
 
 ```sh
-npm test --prefix backend
-npm run build --prefix frontend
+npm run build
 npm audit --omit=dev --prefix backend
 npm audit --prefix frontend
+node scripts/smoke-live.cjs https://techfest2026-wt-lab.vercel.app
 ```
 
-Tests use mocked user queries; they do not prove live MongoDB persistence or transaction concurrency. Event bookings require Atlas or another replica set because seat decrement and unique registration commit in one transaction.
+The build runs eleven backend security/serverless tests and builds React. The live smoke script creates a synthetic account and a free-event booking. Unit tests mock database calls; the live smoke evidence confirms actual Atlas persistence. Transactions require Atlas or another MongoDB replica set.
 
-## Deploy
+## Vercel deployment
 
-Use `render.yaml` or configure a free Node web service from **Sabareesh-pr/wt-lab**, branch main. Build: `npm ci --include=dev --prefix backend && npm test --prefix backend && npm ci --include=dev --prefix frontend && npm run build --prefix frontend`. Start: `npm start --prefix backend`. Health check: `/api/health`.
+Import **Sabareesh-pr/wt-lab**, keep the root directory as `./`, and choose the **Other** preset. vercel.json installs both packages, runs tests, builds React, serves frontend/dist and routes /api/* to the Express function. Page refreshes fall back to index.html. The same origin handles authentication and API traffic.
 
-Set NODE_ENV=production, MONGO_URI to the dedicated Atlas database, JWT_SECRET to a random value of at least 32 characters, and APP_ORIGIN to the exact HTTPS service origin with no trailing slash. Allow only the needed Render outbound addresses in Atlas. Run the seed locally against that database once.
+Set these sensitive environment variables in Vercel:
 
-CI installs locked dependencies, runs tests and builds React. Render is configured with **After CI Checks Pass**, so successful main-branch checks trigger deployment after the service is created. No deployment-hook secret is needed. This matches Render's [Blueprint reference](https://render.com/docs/blueprint-spec#autodeploytrigger). No cloud deployment is implied by a successful local build.
+- MONGO_URI: the verified Atlas URI for techfest2026, with encoded credentials.
+- JWT_SECRET: at least 32 random characters.
+- APP_ORIGIN: https://techfest2026-wt-lab.vercel.app (no trailing slash).
+- NODE_ENV: production.
 
-Rollback: redeploy the previous successful Render deployment. This update does not modify existing collection data. JWTs expire after two hours; logout clears the browser cookie but does not revoke a copied token before expiry.
+Do not set PORT on Vercel. Re-deploy after changing environment variables. GitHub Actions checks pushes and pull requests; Vercel automatically builds and deploys main and also runs tests in its own build. Warm functions reuse a small MongoDB pool. Request counters are per function instance.
 
-See [deployment report](docs/deployment-report.md) for evidence and pending cloud checks.
+Render's optional alternative configuration remains in render.yaml; it is not the selected live deployment. Roll back using the previous successful Vercel deployment. Logout clears the cookie, but a copied JWT expires after two hours.
 
-## Vercel
-
-Import this repository with its root directory unchanged. `vercel.json` installs both packages, runs backend tests, builds React and routes `/api/*` to the Express function. Static React files use Vercel's CDN; page refreshes use index.html. Set MONGO_URI, JWT_SECRET (at least 32 random characters), NODE_ENV=production and APP_ORIGIN to the exact production HTTPS origin. Do not set PORT: Vercel handles requests without a port listener.
-
-The API reuses one small MongoDB pool per warm function instance. Percent-encode the username/password in the MongoDB URI; do not substitute the literal word `password` unless that is the actual Atlas password. Request-rate counters are per function instance, so they are not a global distributed quota.
+See the [deployment report](docs/deployment-report.md) for architecture, screenshots, measured Lighthouse results, CI and live verification evidence, and remaining limitations.
