@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: techfest2026
+    runtime: node
+    plan: free
+    buildCommand: npm ci --prefix backend && npm test --prefix backend && npm ci --prefix frontend && npm run build --prefix frontend
+    startCommand: npm start --prefix backend
+    healthCheckPath: /api/health
+    autoDeploy: false
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGO_URI
+        sync: false
+      - key: APP_ORIGIN
+        sync: false

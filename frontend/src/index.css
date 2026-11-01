@@ -202,3 +202,10 @@ form button[type="submit"]:hover {
 .gallery-grid img:hover {
   transform: scale(1.03);
 }
+.navbar {gap: 16px; background: #343060;}
+.nav-links {display:flex; flex-wrap:wrap; gap:12px;}
+.nav-links a {margin:0;}
+form {max-width:480px;}
+.gallery-grid img {height:auto; aspect-ratio:3/2; object-fit:cover;}
+:focus-visible {outline:3px solid #df9e00; outline-offset:3px;}
+@media(max-width:600px) {.navbar {padding:16px;} .page {padding:24px 16px;} .event-grid {grid-template-columns:1fr;}}

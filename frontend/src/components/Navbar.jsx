@@ -1,12 +1,12 @@
+import {api} from "../api";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
 function Navbar({ token, setToken }) {
   const { theme, toggleTheme } = useTheme();
 
-  function handleLogout() {
-    setToken(null);
-    localStorage.removeItem("token");
+  async function handleLogout() {
+    try {const res = await api('/auth/logout', {method:'POST', body:'{}'}); if(res.ok) setToken(null);} catch {alert('Logout failed. Please try again.');}
   }
 
   return (

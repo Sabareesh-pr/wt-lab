@@ -1,3 +1,4 @@
+import {api} from "../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +13,7 @@ function Login({ setToken }) {
     setMessage("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await api("/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -25,8 +26,8 @@ function Login({ setToken }) {
       }
 
       // Save token so other pages (like registering for events) can use it
-      setToken(data.token);
-      localStorage.setItem("token", data.token);
+      setToken(data.user);
+
       navigate("/events");
     } catch (err) {
       setMessage("Could not reach the server");
@@ -37,10 +38,10 @@ function Login({ setToken }) {
     <div className="page">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} />
-        <label>Password</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <label htmlFor="email">Email</label>
+        <input id="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+        <label htmlFor="password">Password</label>
+        <input id="password" autoComplete="current-password" required minLength={8} maxLength={72} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">Login</button>
       </form>
       {message && <p className="error-msg">{message}</p>}
