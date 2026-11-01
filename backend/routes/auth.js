@@ -18,6 +18,9 @@ router.post('/login', ...credentials, async(req,res,next) => {
  res.cookie('session',token,cookie()).json({user:{id:user.id,name:user.name,role:user.role}});
  } catch(e){next(e);}
 });
-router.get('/me', auth, (req,res) => res.json({user:req.user}));
+router.get('/me', (req,res) => {
+ if (!req.cookies.session) return res.json({user:null});
+ auth(req,res,() => res.json({user:req.user}));
+});
 router.post('/logout', (req,res) => {const options=cookie(); delete options.maxAge; res.clearCookie('session',options).json({message:'Logged out'});});
 module.exports = router;

@@ -45,8 +45,10 @@ async function call(path, method = 'GET', body) {
  const logout = await call('/auth/logout','POST',{});
  assert.equal(logout.response.status,200); assert.match(logout.response.headers.get('set-cookie'),/Expires=Thu, 01 Jan 1970/i);
  cookie = undefined;
- assert.equal((await call('/auth/me')).response.status,401);
- observations.logout = 'Cookie cleared; anonymous request rejected';
+ const anonymous = await call('/auth/me');
+ assert.equal(anonymous.response.status,200); assert.equal(anonymous.data.user,null);
+ assert.equal((await call('/registrations/mine')).response.status,401);
+ observations.logout = 'Cookie cleared; public session state is null; protected data rejected';
  observations.testAccount = email;
  observations.origin = base;
  observations.checkedAt = new Date().toISOString();

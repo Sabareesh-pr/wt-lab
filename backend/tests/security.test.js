@@ -5,6 +5,11 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const app = require('../app');
 afterEach(() => jest.restoreAllMocks());
+test('anonymous session discovery is quiet while private data stays protected', async() => {
+ const session = await request(app).get('/api/auth/me');
+ expect(session.status).toBe(200); expect(session.body).toEqual({user:null});
+ expect((await request(app).get('/api/registrations/mine')).status).toBe(401);
+});
 test('NoSQL operators rejected before querying', async() => {
  const find = jest.spyOn(User,'findOne');
  const res = await request(app).post('/api/auth/login').send({email:{$ne:null},password:'password123'});
