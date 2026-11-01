@@ -213,8 +213,8 @@ form {max-width:480px;}
 .site-shell {display:flex; flex-direction:column;}
 .site-shell > .page {width:100%; flex:1;}
 /* Homepage follows the original ZIP's centred sections and generous spacing. */
-.home-page {text-align:center; padding-top:0;}
-.home-page section {margin:0 auto 60px;}
+.page.home-page {text-align:center; max-width:none; padding:0 0 32px;}
+.home-page section {max-width:912px; margin:0 auto 60px; padding-left:24px; padding-right:24px;}
 .home-banner {padding:50px 20px;}
 .home-banner h1 {margin:0 0 10px;}
 .home-banner p {margin:0;}
@@ -232,7 +232,8 @@ form {max-width:480px;}
   .home-banner {padding:40px 0;}
   .home-page .home-banner h1 {font-size:1.75rem;}
   .home-page section {margin-bottom:40px;}
-}.home-video {display:block; width:100%; height:350px; object-fit:cover; background:#0f1117;}
+}
+.home-video {display:block; width:100%; height:clamp(350px,42vw,600px); object-fit:cover; background:#0f1117;}
 .gallery-page .gallery-grid {grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
 .gallery-thumbnail {padding:0; border:0; background:transparent; cursor:zoom-in; border-radius:12px; overflow:hidden;}
 .gallery-thumbnail img {display:block; width:100%; height:250px; object-fit:cover;}
