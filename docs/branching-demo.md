@@ -1,3 +1,3 @@
 # Branching exercise
 
-Deployment target: pending
+Deployment target: Express API
